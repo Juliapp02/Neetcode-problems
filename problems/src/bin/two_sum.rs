@@ -1,32 +1,25 @@
-use std::{io::stdout, vec};
+use std::{collections::HashMap, vec};
 
 pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
     let mut solution = vec![0; 2];
+    let mut hash_nums = HashMap::new();
 
     for i in 0..nums.len() {
-        for j in 0..nums.len() {
-            let sum1 = nums[i] + nums[j];
-            let sum2 = nums[i] + nums[nums.len() - j - 1];
-            println!("Suma 1 -> {i} + {j} = {sum1}");
-            // println!("Suma 2 -> {i} + {j} = {sum2}");
-            if nums[i] + nums[j] == target {
-                solution[0] = i as i32;
-                solution[1] = j as i32;
-            }
-            if nums[i] + nums[nums.len() - j - 1] == target {
-                solution[0] = i as i32;
-                solution[1] = j as i32;
-            }
-        }
-    }
+        let num = target - nums[i];
+        if hash_nums.contains_key(&num) {
+            solution[0] = *hash_nums.get(&num).unwrap();
+            solution[1] = i as i32;
 
-    println!("SOLUTION -> i: {}, j: {}", solution[0], solution[1]);
+            return solution;
+        }
+        hash_nums.insert(nums[i], i as i32);
+    }
 
     solution
 }
 
 fn main() {
-    let vec = vec![3, 4, 5, 6];
-    let target = 7;
+    let vec = vec![3, 2, 3];
+    let target = 6;
     two_sum(vec, target);
 }
