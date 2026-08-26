@@ -1,14 +1,24 @@
 use std::collections::HashMap;
 
 pub fn group_anagrams(strs: Vec<String>) -> Vec<Vec<String>> {
-    let solution: Vec<Vec<String>> = vec![];
-    let mut char_lists: Vec<HashMap<char, i32>> = vec![];
+    let mut solution: Vec<Vec<String>> = vec![];
+    let mut char_lists: HashMap<String, Vec<String>> = HashMap::new();
 
-    for i in 0..strs.len() {
-        let iter = strs[i].chars();
-        for j in iter {
-            *char_lists[i].entry(j).or_insert(0) += 1;
-        }
+    for i in strs {
+        let mut chars: Vec<char> = i.chars().collect();
+        chars.sort_unstable();
+        let key: String = chars.into_iter().collect();
+
+        /*
+         * With or_default the compiler looks at the type of the value
+         * of the HashMap adn calls the default value of that type.
+         * Better than or_insert(Vec::new())
+         * */
+        char_lists.entry(key).or_default().push(i);
+    }
+
+    for i in char_lists {
+        solution.push(i.1);
     }
 
     solution
