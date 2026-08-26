@@ -1,7 +1,6 @@
 use std::collections::HashMap;
 
 pub fn group_anagrams(strs: Vec<String>) -> Vec<Vec<String>> {
-    let mut solution: Vec<Vec<String>> = vec![];
     let mut char_lists: HashMap<String, Vec<String>> = HashMap::new();
 
     for i in strs {
@@ -17,11 +16,7 @@ pub fn group_anagrams(strs: Vec<String>) -> Vec<Vec<String>> {
         char_lists.entry(key).or_default().push(i);
     }
 
-    for i in char_lists {
-        solution.push(i.1);
-    }
-
-    solution
+    char_lists.into_values().collect()
 }
 
 fn main() {
