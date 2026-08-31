@@ -9,7 +9,7 @@ pub fn is_anagram(s: String, t: String) -> bool {
         return false;
     }
 
-    let mut iter = zip(s.chars(), t.chars());
+    let iter = zip(s.chars(), t.chars());
 
     for c in iter {
         *char_s.entry(c.0).or_insert(0) += 1;
