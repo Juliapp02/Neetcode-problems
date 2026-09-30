@@ -4,8 +4,8 @@ pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
     let mut solution = vec![0; 2];
     let mut hash_nums = HashMap::new();
 
-    for i in 0..nums.len() {
-        let num = target - nums[i];
+    for i in nums {
+        let num = target - i;
         if hash_nums.contains_key(&num) {
             solution[0] = *hash_nums.get(&num).unwrap();
             solution[1] = i as i32;
